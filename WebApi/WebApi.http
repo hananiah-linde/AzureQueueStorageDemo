@@ -1,6 +1,12 @@
 @WebApi_HostAddress = http://localhost:5278
 
-GET {{WebApi_HostAddress}}/signup
-Accept: application/json
+POST {{WebApi_HostAddress}}/signup
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com"
+}
 
 ###
