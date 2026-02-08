@@ -1,24 +1,15 @@
-using Azure.Storage.Queues;
 using SharedLibrary;
 
 var builder = WebApplication.CreateBuilder(args);
-
-var connectionString = builder.Configuration.GetValue<string>("AzureStorage:ConnectionString");
-var options = new QueueClientOptions(QueueClientOptions.ServiceVersion.V2025_01_05)
-{
-    MessageEncoding = QueueMessageEncoding.Base64
-};
-builder.Services.AddSingleton(new QueueServiceClient(connectionString, options));
-builder.Services.AddSingleton<IQueueService, QueueService>();
 
 var app = builder.Build();
 
 app.UseHttpsRedirection();
 
-app.MapPost("/signup", async (SignupRequest request, IQueueService queueService) =>
+app.MapPost("/signup", async (SignupRequest request) =>
 {
-    await queueService.SendMessageAsync("signup", request);
-    return Results.Ok(new { Message = "Signup request received" });
+    await Task.Delay(1000); // Simulate processing time for signup
+    return Results.Ok(new { Token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c" });
 })
 .WithName("Signup");
 

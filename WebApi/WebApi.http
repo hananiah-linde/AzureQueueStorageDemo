@@ -1,4 +1,4 @@
-@WebApi_HostAddress = http://localhost:5278
+@WebApi_HostAddress = https://localhost:7084
 
 POST {{WebApi_HostAddress}}/signup
 Content-Type: application/json
